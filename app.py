@@ -9,8 +9,8 @@ api_key = os.environ.get("GEMINI_API_KEY")
 if api_key:
     genai.configure(api_key=api_key)
 
-# Stable Fallback Model Name
-model = genai.GenerativeModel('gemini-1.5-flash-latest')
+# Updated Latest Gemini Model
+model = genai.GenerativeModel('gemini-2.5-flash')
 
 HTML = '''
 <!DOCTYPE html>
