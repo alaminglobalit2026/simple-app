@@ -4,13 +4,13 @@ from flask import Flask, request, render_template_string
 
 app = Flask(__name__)
 
-# Configure Gemini API
+# Configure API Key
 api_key = os.environ.get("GEMINI_API_KEY")
 if api_key:
     genai.configure(api_key=api_key)
 
-# Gemini 1.5 Flash Model
-model = genai.GenerativeModel('gemini-1.5-flash')
+# Updated Supported Model
+model = genai.GenerativeModel('gemini-2.0-flash')
 
 HTML = '''
 <!DOCTYPE html>
@@ -28,7 +28,7 @@ HTML = '''
 <body>
     <h2>AI Text Summarizer</h2>
     <form method="post">
-        <textarea name="text" placeholder="Paste your text here..." required></textarea>
+        <textarea name="text" placeholder="Write or paste your text here..." required></textarea>
         <br><br>
         <button type="submit">Summarize Text</button>
     </form>
