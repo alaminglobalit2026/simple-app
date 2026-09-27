@@ -33,7 +33,7 @@ HTML = '''
     <div class="student-info">
         <h3>Assignment Submission</h3>
         <p>Student Name: AL AMIN</p>
-        <p>Student ID: 2026512826</p>
+        <p>Student ID: 2026512806</p>
     </div>
 
     <h2>AI Text Summarizer Application</h2>
