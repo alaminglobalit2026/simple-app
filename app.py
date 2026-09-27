@@ -4,12 +4,12 @@ from flask import Flask, request, render_template_string
 
 app = Flask(__name__)
 genai.configure(api_key=os.environ.get("GEMINI_API_KEY"))
-model = genai.GenerativeModel('gemini-1.5-flash')
+model = genai.GenerativeModel('gemini-1.5-flash') 
 
 HTML = '''
 <!DOCTYPE html>
 <html>
-<head><title>Text Summarizer</title></head>
+<head><title>Text Summarizer Al Amin || ID - 2026512806</title></head>
 <body style="font-family: Arial; max-width: 600px; margin: 50px auto; padding: 20px;">
     <h2>AI Text Summarizer</h2>
     <form method="post">
