@@ -3,23 +3,39 @@ import google.generativeai as genai
 from flask import Flask, request, render_template_string
 
 app = Flask(__name__)
-genai.configure(api_key=os.environ.get("GEMINI_API_KEY"))
-model = genai.GenerativeModel('gemini-1.5-flash') 
+
+# Konfigurazzjoni tal-API Key
+api_key = os.environ.get("GEMINI_API_KEY")
+if api_key:
+    genai.configure(api_key=api_key)
+
+# Użu tal-mudell stabbli gemini-1.5-flash
+model = genai.GenerativeModel('gemini-1.5-flash')
 
 HTML = '''
 <!DOCTYPE html>
 <html>
-<head><title>Text Summarizer Al Amin || ID - 2026512806</title></head>
-<body style="font-family: Arial; max-width: 600px; margin: 50px auto; padding: 20px;">
+<head>
+    <title>AI Text Summarizer</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 600px; margin: 50px auto; padding: 20px; }
+        textarea { width: 100%; height: 150px; padding: 10px; box-sizing: border-box; }
+        button { background-color: #007bff; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; }
+        .result { background: #f4f4f4; padding: 15px; border-radius: 5px; margin-top: 20px; }
+    </style>
+</head>
+<body>
     <h2>AI Text Summarizer</h2>
     <form method="post">
-        <textarea name="text" rows="8" style="width: 100%;" placeholder="Paste your long text here..." required></textarea>
+        <textarea name="text" placeholder="Ikteb jew waħħal it-test hawn..." required></textarea>
         <br><br>
-        <button type="submit" style="padding: 10px 20px; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;">Summarize</button>
+        <button type="submit">Iġbor it-Test (Summarize)</button>
     </form>
     {% if summary %}
-        <h3>Summary:</h3>
-        <p style="background: #f4f4f4; padding: 15px; border-radius: 5px;">{{ summary }}</p>
+        <div class="result">
+            <h3>Riżultat:</h3>
+            <p>{{ summary }}</p>
+        </div>
     {% endif %}
 </body>
 </html>
@@ -29,9 +45,12 @@ HTML = '''
 def index():
     summary = None
     if request.method == 'POST':
-        user_text = request.form.get('text')
-        response = model.generate_content(f"Summarize this text in simple words:\n{user_text}")
-        summary = response.text
+        try:
+            user_text = request.form.get('text')
+            response = model.generate_content(f"Summarize this text: {user_text}")
+            summary = response.text
+        except Exception as e:
+            summary = f"Iżball: {str(e)}"
     return render_template_string(HTML, summary=summary)
 
 if __name__ == '__main__':
